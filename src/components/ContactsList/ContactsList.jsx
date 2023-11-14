@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import ContactsListItem from '../ContactListItem/ContactListItem';
 
 function ContactsList() {
-  const contacts = useSelector((state => state.contacts.item));
+  const contacts = useSelector(state => state.contacts.items);
   const filterValue = useSelector(state => state.contacts.filter);
 
   const isVisibleContacts = () =>
