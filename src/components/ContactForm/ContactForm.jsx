@@ -6,7 +6,7 @@ import { handleAddContact } from 'redux/conttacts/contactsSlice';
 
 function ContactForm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.item);
+  const contacts = useSelector(state => state.contacts.items);
   const [form, setForm] = useState({
     name: '',
     number: '',
@@ -56,15 +56,30 @@ function ContactForm() {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <label htmlFor="">
+      <label htmlFor="name">
         Name
         <input
           type="text"
+          id="name"
           name="name"
           placeholder="Enter name"
           value={name}
           onChange={handleChangeForm}
-          title="The name can only consist of letters, an apostrophe, a dash and spaces. For example Adrian, Jacob Mercer."
+          // pattern="[A-Za-z' ]+"
+          title="The name can only consist of letters, an apostrophe, spaces. For example Adrian, Jacob Mercer."
+          required
+        />
+      </label>
+      <label htmlFor="number">
+        Number
+        <input
+          type="tel"
+          id="number"
+          name="number"
+          placeholder="Enter phone number"
+          value={number}
+          onChange={handleChangeForm}
+          title="The phone number must consist of numbers and can contain spaces, dashes, parentheses and can begin with +"
           required
         />
       </label>
