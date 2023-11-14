@@ -65,7 +65,7 @@ function ContactForm() {
           placeholder="Enter name"
           value={name}
           onChange={handleChangeForm}
-          // pattern="[A-Za-z' ]+"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="The name can only consist of letters, an apostrophe, spaces. For example Adrian, Jacob Mercer."
           required
         />
@@ -79,6 +79,7 @@ function ContactForm() {
           placeholder="Enter phone number"
           value={number}
           onChange={handleChangeForm}
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="The phone number must consist of numbers and can contain spaces, dashes, parentheses and can begin with +"
           required
         />
