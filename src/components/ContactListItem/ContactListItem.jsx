@@ -2,15 +2,17 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix';
 import { handleRemoveContact } from 'redux/conttacts/contactsSlice';
+import css from './ContactListItem.module.css'
 
 function ContactListItem({ name, number, id }) {
   const dispatch = useDispatch();
 
   return (
-    <li>
-      <span>{name}:</span>
-      <span>{number}</span>
+    <li className={css.listItem}>
+      <span className={css.listItemText}>{name}:</span>
+      <span className={css.listItemText}>{number}</span>
       <button
+      className={css.deleteBtn}
         type="button"
         onClick={() =>
           dispatch(

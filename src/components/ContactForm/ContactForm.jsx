@@ -3,6 +3,7 @@ import { Notify } from 'notiflix';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleAddContact } from 'redux/conttacts/contactsSlice';
+import css from './ContactForm.module.css'
 
 function ContactForm() {
   const dispatch = useDispatch();
@@ -55,14 +56,15 @@ function ContactForm() {
   }, [contacts]);
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label htmlFor="name">
+    <form className={css.form} onSubmit={handleFormSubmit}>
+      <label className={css.label} htmlFor="name">
         Name
         <input
+        className={css.input}
           type="text"
           id="name"
           name="name"
-          placeholder="Enter name"
+          placeholder="Kurt Cobain"
           value={name}
           onChange={handleChangeForm}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -70,13 +72,14 @@ function ContactForm() {
           required
         />
       </label>
-      <label htmlFor="number">
+      <label className={css.label} htmlFor="number">
         Number
         <input
+        className={css.input}
           type="tel"
           id="number"
           name="number"
-          placeholder="Enter phone number"
+          placeholder="123-45-67"
           value={number}
           onChange={handleChangeForm}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -85,7 +88,7 @@ function ContactForm() {
         />
       </label>
 
-      <button type="submit">
+      <button className={css.addBtn} type="submit">
         <span>Add contact</span>
       </button>
     </form>
