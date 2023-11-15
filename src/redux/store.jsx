@@ -1,19 +1,36 @@
-import { createLogger } from 'redux-logger';
-import contactsReducer from './conttacts/contactsSlice';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import  contactsReducer  from './conttacts/contactsSlice';
 
-const reducer = {
-  contacts: contactsReducer,
+const contactsConfig = {
+  key: 'contacts',
+  storage,
+  whitelist: ['items'],
 };
 
-const logger = createLogger({
-  collapsed: (_, action, logEntry) => !logEntry.error,
-  timestamp: false,
-});
+const persistedReducer = persistReducer(contactsConfig, contactsReducer);
 
 const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  reducer: {
+    contacts: persistedReducer,
+  },
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

@@ -21,7 +21,8 @@ function ContactForm() {
   const { name, number } = form;
 
   const isUniqueContact = () => {
-    const isExistContact = contacts.find(contact => contact.name === name);
+    const lowerCaseName = name.toLowerCase();
+    const isExistContact = contacts.find(contact => contact.name.toLowerCase() === lowerCaseName);
     if (isExistContact) {
       Notify.failure('Contact is already exist');
     }
