@@ -15,7 +15,7 @@ import { configureStore } from '@reduxjs/toolkit';
 const contactsConfig = {
   key: 'contacts',
   storage,
-  whitelist: ['items'],
+  whitelist: ['contacts'],
 };
 
 const persistedReducer = persistReducer(contactsConfig, contactsReducer);
