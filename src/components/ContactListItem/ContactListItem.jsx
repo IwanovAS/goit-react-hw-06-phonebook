@@ -1,30 +1,44 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix';
-import { handleRemoveContact } from 'redux/conttacts/contactsSlice';
-import css from './ContactListItem.module.css'
+import css from './ContactListItem.module.css';
+import { deleteContact } from 'redux/conttacts/contactsSlice';
 
-function ContactListItem({ name, number, id }) {
+export const ContactListItem = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
+  const filter = useSelector(state => state.contacts.filter);
+
+  const getFormFilter = () => {
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  const handleRemoveContact = id => {
+    dispatch(deleteContact(id));
+    Notify.success('The contact was deleted');
+  };
 
   return (
-    <li className={css.listItem}>
-      <span className={css.listItemText}>{name}:</span>
-      <span className={css.listItemText}>{number}</span>
-      <button
-      className={css.deleteBtn}
-        type="button"
-        onClick={() =>
-          dispatch(
-            handleRemoveContact(id),
-            Notify.success('The contact was deleted')
-          )
-        }
-      >
-        Delete
-      </button>
-    </li>
+    <ul>
+      {getFormFilter().map(contact => {
+        const { id, name, number } = contact;
+        return (
+          <li className={css.listItem} key={id}>
+            <span className={css.listItemText}>{name}:</span>
+            <span className={css.listItemText}>{number}</span>
+            <button
+              className={css.deleteBtn}
+              type="button"
+              onClick={() => handleRemoveContact(id)}
+            >
+              Delete
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
-}
+};
 
 export default ContactListItem;

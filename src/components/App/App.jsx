@@ -1,5 +1,5 @@
 import ContactForm from 'components/ContactForm/ContactForm';
-import ContactsList from 'components/ContactsList/ContactsList';
+import ContactListItem from 'components/ContactListItem/ContactListItem';
 import Filter from 'components/Filter/Filter';
 import './App.module.css'
 
@@ -10,7 +10,7 @@ function App() {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
-      <ContactsList />
+      <ContactListItem />
     </>
   );
 }
